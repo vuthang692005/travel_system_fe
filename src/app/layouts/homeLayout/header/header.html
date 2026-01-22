@@ -1,0 +1,66 @@
+<header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div class="flex-shrink-0">
+      <img src="/logo.png" alt="TravelMate" class="h-10 cursor-pointer" />
+    </div>
+
+    <nav class="hidden md:flex items-center space-x-10">
+      @for (link of navLinks; track link.label) {
+        <a
+          [routerLink]="link.path"
+          class="text-[#1a2b49] font-bold hover:text-blue-500 transition-colors flex items-center gap-1"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="flex items-center gap-6">
+      <button
+        class="px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors text-[#1a2b49]"
+      >
+        Hợp tác với chúng tôi
+      </button>
+
+      @if (isLoggedIn) {
+        <div class="flex items-center gap-5">
+          <div class="relative cursor-pointer p-1">
+            <i class="far fa-bell text-2xl text-gray-700"></i>
+            @if (HasNotification) {
+              <span
+                class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"
+              ></span>
+            }
+          </div>
+
+          <div
+            class="flex items-center gap-2.5 p-1 pr-3 border border-gray-200 rounded-full cursor-pointer hover:bg-gray-50 transition-all"
+          >
+            <div
+              class="w-9 h-9 bg-[#00a6d2] rounded-full flex items-center justify-center text-white font-bold text-sm"
+            >
+              {{ userName.charAt(0) }}
+            </div>
+            <span class="font-bold text-sm text-[#1a2b49]">{{ userName }}</span>
+            <i class="fas fa-chevron-down text-[10px] text-gray-500 mt-0.5"></i>
+          </div>
+        </div>
+      } @else {
+        <div class="flex items-center gap-3">
+          <button
+            routerLink="/auth"
+            class="px-4 py-2 text-sm font-bold text-[#1a2b49] hover:text-blue-600 transition-colors"
+          >
+            Đăng nhập
+          </button>
+          <button
+            routerLink="/auth/register"
+            class="px-6 py-2.5 bg-[#00a6d2] text-white text-sm font-bold rounded-xl hover:bg-[#008db3] transition-colors shadow-sm"
+          >
+            Đăng ký
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

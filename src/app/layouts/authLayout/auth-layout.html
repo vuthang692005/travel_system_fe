@@ -1,0 +1,95 @@
+<div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+  <div class="absolute top-6 left-6 z-20">
+    <a
+      routerLink="/"
+      class="flex items-center gap-1 px-3 py-1.5 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white hover:bg-white/30 transition-all shadow-lg"
+    >
+      <mat-icon class="scale-80">arrow_back</mat-icon>
+      <span class="text-sm font-medium pr-1">Trang chủ</span>
+    </a>
+  </div>
+
+  <div class="absolute inset-0 z-0">
+    <img
+      src="/LuxuryResortPool.avif"
+      alt="Luxury Resort Pool"
+      class="w-full h-full object-cover scale-105 brightness-90"
+    />
+  </div>
+
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-teal-950/70 via-teal-900/50 to-teal-900/30 z-0 mix-blend-multiply"
+  ></div>
+
+  <div class="relative w-full max-w-6xl flex items-center justify-center gap-12 z-10">
+    <div class="hidden lg:flex flex-col items-start justify-center flex-1 max-w-xl py-12">
+      <div class="space-y-8">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-lg"
+          >
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </div>
+          <h1 class="text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
+            BV<span class="text-emerald-300">Travel</span>
+          </h1>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-5xl font-bold text-white leading-[1.1] drop-shadow-lg">
+            Đặt phòng nhanh chóng,<br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-teal-100"
+            >
+              tận hưởng kỳ nghỉ.
+            </span>
+          </h2>
+          <p class="text-slate-100 text-lg leading-relaxed max-w-md font-medium drop-shadow-md">
+            Khám phá những khách sạn và resort tuyệt vời nhất với mức giá ưu đãi. Trải nghiệm sự
+            tiện nghi và sang trọng ngay hôm nay.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 py-6 border-y border-white/30">
+          <div>
+            <div class="text-3xl font-bold text-white drop-shadow">150+</div>
+            <div class="text-emerald-100 font-medium text-sm shadow-sm">Địa điểm</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white drop-shadow">1K+</div>
+            <div class="text-emerald-100 font-medium text-sm shadow-sm">Khách hàng</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white drop-shadow">4.9/5</div>
+            <div class="text-emerald-100 font-medium text-sm shadow-sm">Đánh giá</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative w-full max-w-md">
+      <div class="absolute -inset-2 bg-teal-500/20 rounded-[2.5rem] blur-xl"></div>
+
+      <div class="relative w-full max-w-md">
+        <div
+          class="relative bg-white backdrop-blur-2xl rounded-3xl shadow-2xl p-8 border border-white/50 max-h-[90vh] overflow-y-auto scrollbar-hide"
+        >
+          <router-outlet />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

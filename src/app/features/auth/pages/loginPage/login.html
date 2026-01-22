@@ -1,0 +1,54 @@
+<auth-header icon="login" headerTitle="Chào mừng trở lại" headerSubtitle="Đăng nhập để tiếp tục" />
+
+<div class="space-y-5">
+  <div>
+    <input-field
+      icon="email"
+      type="email"
+      placeholder="Email đăng nhập"
+      [(value)]="loginForm.email"
+    />
+  </div>
+  <div>
+    <input-field
+      icon="lock"
+      [showPasswordToggle]="true"
+      placeholder="Nhập mật khẩu"
+      [(value)]="loginForm.password"
+    />
+  </div>
+
+  <div class="flex items-center justify-between text-sm">
+    <label class="flex items-center text-black text-opacity-80 cursor-pointer">
+      <input type="checkbox" class="mr-2 rounded" />
+      Ghi nhớ đăng nhập
+    </label>
+    <button class="text-black hover:underline">Quên mật khẩu?</button>
+  </div>
+
+  <button
+    type="button"
+    (click)="handleSubmit()"
+    class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
+  >
+    <span>Đăng nhập</span>
+    <mat-icon class="text-[20px] flex items-center justify-center">arrow_forward</mat-icon>
+  </button>
+
+  <div class="flex items-center my-6">
+    <div class="flex-1 border-t border-black border-opacity-30"></div>
+    <span class="px-4 text-black text-opacity-60 text-sm">HOẶC</span>
+    <div class="flex-1 border-t border-black border-opacity-30"></div>
+  </div>
+
+  <google-button />
+
+  <div class="text-center mt-6">
+    <p class="text-black text-opacity-80">
+      Chưa có tài khoản?
+      <button routerLink="/auth/register" class="font-semibold text-blue-500 hover:underline">
+        Đăng ký ngay
+      </button>
+    </p>
+  </div>
+</div>

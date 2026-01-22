@@ -1,0 +1,87 @@
+<footer class="bg-[#004b7a] text-white pt-12 pb-6 font-sans relative">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="space-y-4">
+      <h3 class="text-lg font-bold border-l-4 border-white pl-3 mb-6">Liên hệ</h3>
+      @for (item of contactInfo; track item.text) {
+        <div class="flex items-start gap-3 text-gray-300 text-sm">
+          <i class="fas {{ item.icon }} mt-1 w-5 text-center"></i>
+          <span>{{ item.text }}</span>
+        </div>
+      }
+    </div>
+
+    <div>
+      <h3 class="text-lg font-bold border-l-4 border-white pl-3 mb-6">Về chúng tôi</h3>
+      <ul class="space-y-3">
+        @for (link of aboutLinks; track link.label) {
+          <li>
+            <a
+              [routerLink]="link.url"
+              class="text-gray-300 hover:text-white text-sm transition-colors"
+              >{{ link.label }}</a
+            >
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-bold border-l-4 border-white pl-3 mb-6">Hỗ trợ khách hàng</h3>
+      <ul class="space-y-3">
+        @for (link of supportLinks; track link.label) {
+          <li>
+            <a
+              [routerLink]="link.url"
+              class="text-gray-300 hover:text-white text-sm transition-colors"
+              >{{ link.label }}</a
+            >
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-bold border-l-4 border-white pl-3 mb-6">Kết nối</h3>
+      <div class="flex gap-4 mb-8">
+        @for (icon of socialLinks; track icon.icon) {
+          <a
+            [routerLink]="icon.url"
+            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+          >
+            <i class="fab {{ icon.icon }} text-lg"></i>
+          </a>
+        }
+      </div>
+
+      <h4 class="text-sm font-semibold mb-3">Đối tác thanh toán</h4>
+      <div class="flex gap-2">
+        @for (p of payments; track p) {
+          <span
+            class="bg-white text-[#004b7a] px-3 py-1 rounded text-[10px] font-black tracking-tighter shadow-sm"
+          >
+            {{ p }}
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4"
+  >
+    <p>© 2025 TravelMate. Bản quyền thuộc về Công ty TNHH TravelMate Việt Nam.</p>
+    <div class="flex gap-6">
+      @for (link of bottomLinks; track link.label) {
+        <a [routerLink]="link.url" class="hover:text-white transition-colors">
+          {{ link.label }}
+        </a>
+      }
+    </div>
+  </div>
+
+  <div
+    class="fixed bottom-6 right-6 w-14 h-14 bg-sky-600 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform z-50"
+  >
+    <i class="fas fa-comment-dots text-white text-3xl"></i>
+  </div>
+</footer>
