@@ -9,8 +9,8 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   // Giả lập trạng thái: true là đã đăng nhập, false là chưa
-  isLoggedIn: boolean = true;
-  HasNotification: boolean = true;
+  isLoggedIn: boolean = false;
+  HasNotification: boolean = false;
   userName: string = 'FullName';
 
   navLinks = [
