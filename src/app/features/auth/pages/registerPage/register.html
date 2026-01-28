@@ -6,7 +6,8 @@
       icon="person"
       type="text"
       placeholder="Nhập họ tên"
-      [(value)]="registerForm.name"
+      [error]="errors().fullName"
+      (valueChange)="fullName.set($event); errors().fullName = ''"
     />
   </div>
   <div>
@@ -14,7 +15,8 @@
       icon="email"
       type="email"
       placeholder="Nhập email"
-      [(value)]="registerForm.email"
+      [error]="errors().email"
+      (valueChange)="email.set($event); errors().email = ''"
     />
   </div>
   <div>
@@ -22,20 +24,74 @@
       icon="lock"
       [showPasswordToggle]="true"
       placeholder="Nhập mật khẩu"
-      [(value)]="registerForm.password"
+      [error]="errors().password"
+      (valueChange)="password.set($event); errors().password = ''"
     />
   </div>
+
+  @if (password().length > 0) {
+    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mt-2 space-y-2">
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+        Độ mạnh mật khẩu
+      </p>
+      <div class="grid grid-cols-2 gap-2 text-[11px]">
+        <div
+          [class]="password().length >= 8 ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            password().length >= 8 ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Ít nhất 8 ký tự
+        </div>
+        <div
+          [class]="/[0-9]/.test(password()) ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            /[0-9]/.test(password()) ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Có chứa số
+        </div>
+        <div
+          [class]="/[A-Z]/.test(password()) ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            /[A-Z]/.test(password()) ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Chữ in hoa
+        </div>
+        <div
+          [class]="/[@$!%*?&]/.test(password()) ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            /[@$!%*?&]/.test(password()) ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Ký tự đặc biệt
+        </div>
+      </div>
+    </div>
+  }
+
   <div>
     <input-field
       icon="lock"
       [showPasswordToggle]="true"
       placeholder="Nhập lại mật khẩu"
-      [(value)]="registerForm.confirmPassword"
+      [error]="errors().confirmPassword"
+      (valueChange)="confirmPassword.set($event); errors().confirmPassword = ''"
     />
   </div>
 
   <div class="flex items-center text-sm">
-    <input type="checkbox" class="mr-2 rounded" />
+    <input
+      type="checkbox"
+      class="mr-2 rounded cursor-pointer"
+      (change)="isAgreed.set($event.target.checked)"
+      [checked]="isAgreed()"
+    />
     <span class="text-black text-opacity-80">
       Tôi đồng ý với <button class="underline text-blue-600">Điều khoản</button> và
       <button class="underline text-blue-600">Chính sách</button>
@@ -43,13 +99,18 @@
   </div>
 
   <button
-    [disabled]="false"
+    [disabled]="!isFormValid() || isLoading()"
     type="button"
-    (click)="handleSubmit()"
-    class="w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 bg-green-600 text-white shadow-lg shadow-green-600/20 hover:bg-green-700 hover:scale-[1.02] active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed disabled:shadow-none disabled:scale-100"
+    (click)="onRegister()"
+    class="w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-200 bg-green-600 text-white shadow-lg shadow-green-600/20 hover:bg-green-700 hover:scale-[1.02] active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed disabled:shadow-none disabled:scale-100 mt-4"
   >
-    <span>Tạo tài khoản</span>
-    <mat-icon class="text-[20px] flex items-center justify-center">arrow_forward</mat-icon>
+    @if (isLoading()) {
+      <mat-icon class="animate-spin">sync</mat-icon>
+      <span>Đang xử lý...</span>
+    } @else {
+      <span>Tạo tài khoản</span>
+      <mat-icon class="text-[20px] flex items-center justify-center">arrow_forward</mat-icon>
+    }
   </button>
 
   <div class="flex items-center my-6">
