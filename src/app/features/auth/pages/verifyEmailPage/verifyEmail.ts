@@ -58,7 +58,7 @@ import { CommonModule } from '@angular/common';
               <span class="text-blue-600 font-bold">BVTRAVEL</span>.
             </p>
             <a
-              routerLink="/auth/login"
+              routerLink="/auth"
               class="group w-full py-4 px-8 bg-slate-900 text-white rounded-2xl font-bold text-lg hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg hover:shadow-black/20"
             >
               <span>Đăng nhập ngay</span>

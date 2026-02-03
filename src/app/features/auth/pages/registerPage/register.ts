@@ -24,6 +24,7 @@ export class Register {
   password = signal('');
   confirmPassword = signal('');
   isAgreed = signal(false); // Signal quản lý trạng thái checkbox
+  passwordMismatch = computed(() => this.password() === this.confirmPassword());
 
   isLoading = signal(false);
   errors = signal({ fullName: '', email: '', password: '', confirmPassword: '' });
@@ -40,8 +41,16 @@ export class Register {
     const isPasswordStrong = this.passwordRegex.test(this.password());
     const isConfirmMatch = this.confirmPassword() !== '';
     const hasAgreed = this.isAgreed();
+    const passwordMismatch = this.password() === this.confirmPassword();
 
-    return isFullNameValid && isEmailValid && isPasswordStrong && isConfirmMatch && hasAgreed;
+    return (
+      passwordMismatch &&
+      isFullNameValid &&
+      isEmailValid &&
+      isPasswordStrong &&
+      isConfirmMatch &&
+      hasAgreed
+    );
   });
 
   // Giữ nguyên hàm validate() để hiển thị thông báo lỗi khi nhấn đăng ký (nếu cần)
@@ -50,10 +59,6 @@ export class Register {
     if (!this.isFormValid()) return;
     if (!this.emailRegex.test(this.email())) {
       this.toast.show('Email không hợp lệ', 'error');
-      return;
-    }
-    if (this.password() === this.confirmPassword()) {
-      this.toast.show('Mật khẩu nhập lại ko trùng khớp', 'error');
       return;
     }
 
@@ -67,8 +72,7 @@ export class Register {
     this.isLoading.set(true);
     this.authService.register(payload).subscribe({
       next: () => {
-        this.toast.show('Đăng ký thành công! Hãy kiểm tra email để xác thực.', 'success');
-        this.router.navigate(['/auth']);
+        this.router.navigate(['/auth/register-success']);
       },
       error: (err) => {
         this.toast.show(err.error?.message || 'Đăng ký thất bại', 'error');

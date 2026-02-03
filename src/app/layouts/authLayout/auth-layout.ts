@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'auth-layout',
@@ -8,4 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [RouterModule, MatIconModule],
   templateUrl: 'auth-layout.html',
 })
-export class AuthLayout {}
+export class AuthLayout {
+  public authService = inject(AuthService);
+}

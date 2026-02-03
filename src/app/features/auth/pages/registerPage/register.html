@@ -31,9 +31,6 @@
 
   @if (password().length > 0) {
     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mt-2 space-y-2">
-      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-        Độ mạnh mật khẩu
-      </p>
       <div class="grid grid-cols-2 gap-2 text-[11px]">
         <div
           [class]="password().length >= 8 ? 'text-emerald-600' : 'text-slate-400'"
@@ -70,6 +67,24 @@
             /[@$!%*?&]/.test(password()) ? 'check_circle' : 'circle'
           }}</mat-icon>
           Ký tự đặc biệt
+        </div>
+        <div
+          [class]="/[a-z]/.test(password()) ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            /[a-z]/.test(password()) ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Chữ thường
+        </div>
+        <div
+          [ngClass]="passwordMismatch() ? 'text-emerald-600' : 'text-slate-400'"
+          class="flex items-center gap-1"
+        >
+          <mat-icon class="!text-[14px] !w-3.5 !h-3.5">{{
+            passwordMismatch() ? 'check_circle' : 'circle'
+          }}</mat-icon>
+          Mật khẩu nhập lại khớp
         </div>
       </div>
     </div>
