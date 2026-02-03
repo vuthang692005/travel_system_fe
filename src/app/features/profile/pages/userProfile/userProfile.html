@@ -1,0 +1,176 @@
+<div class="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-50">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Dữ liệu cá nhân</h2>
+
+  <div class="bg-orange-50 border border-orange-100 p-4 rounded-2xl flex items-start gap-3 mb-8">
+    <i class="fas fa-info-circle text-orange-500 mt-1"></i>
+    <p class="text-sm text-orange-800 italic leading-relaxed">
+      Nếu bạn muốn đăng ký trở thành "Chủ sở hữu", hãy điền các trường có dấu
+      <span class="text-red-500">*</span>.
+    </p>
+  </div>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="grid grid-cols-1 gap-6">
+    <div class="space-y-2">
+      <label class="text-sm font-bold text-slate-700 ml-1"
+        >Họ và tên <span class="text-red-500">*</span></label
+      >
+      <div class="relative group">
+        <i
+          class="far fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+        ></i>
+        <input
+          type="text"
+          formControlName="fullName"
+          placeholder="Nhập họ tên"
+          class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-sm font-bold text-slate-700 ml-1"
+        >Số điện thoại <span class="text-red-500">*</span></label
+      >
+      <div class="relative group">
+        <i
+          class="fas fa-phone-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+        ></i>
+        <input
+          type="text"
+          formControlName="phoneNumber"
+          placeholder="Nhập số điện thoại"
+          class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-sm font-bold text-slate-700 ml-1"
+        >Ngày sinh <span class="text-red-500">*</span></label
+      >
+      <div class="relative group">
+        <i
+          class="far fa-calendar-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+        ></i>
+        <input
+          type="date"
+          formControlName="dateOfBirth"
+          class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-sm font-bold text-slate-700 ml-1">
+        Giới tính <span class="text-red-500">*</span>
+      </label>
+
+      <div class="relative group">
+        <div
+          (click)="isGenderOpen.set(!isGenderOpen())"
+          [class.border-blue-500]="isGenderOpen()"
+          class="w-full pl-11 pr-5 py-3 bg-white border border-slate-200 rounded-xl cursor-pointer flex items-center justify-between transition-all"
+        >
+          <i
+            class="fas fa-venus-mars absolute left-4 text-slate-400 transition-colors"
+            [class.text-blue-500]="isGenderOpen()"
+          ></i>
+
+          <span class="text-slate-700">{{ profileForm.get('gender')?.value }}</span>
+
+          <i
+            class="fas fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300"
+            [class.rotate-180]="isGenderOpen()"
+          ></i>
+        </div>
+
+        @if (isGenderOpen()) {
+          <div
+            class="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200"
+          >
+            <div class="p-1">
+              @for (option of genderOptions; track option) {
+                <div
+                  (click)="selectGender(option)"
+                  class="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all hover:bg-blue-50 group"
+                >
+                  <span class="text-slate-600 font-medium group-hover:text-slate-600">{{
+                    option
+                  }}</span>
+
+                  @if (profileForm.get('gender')?.value === option) {
+                    <i class="fas fa-check text-blue-500 text-xs"></i>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="fixed inset-0 z-40" (click)="isGenderOpen.set(false)"></div>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label class="text-sm font-bold text-slate-700 ml-1">Thành phố / Tỉnh</label>
+        <div class="relative group">
+          <i
+            class="fas fa-city absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+          ></i>
+          <input
+            type="text"
+            formControlName="city"
+            placeholder="Nhập thành phố / tỉnh"
+            class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+          />
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label class="text-sm font-bold text-slate-700 ml-1">Quốc gia</label>
+        <div class="relative group">
+          <i
+            class="fas fa-flag absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+          ></i>
+          <input
+            type="text"
+            formControlName="country"
+            placeholder="Nhập quốc gia"
+            class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-sm font-bold text-slate-700 ml-1">Địa chỉ chi tiết</label>
+      <div class="relative group">
+        <i
+          class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+        ></i>
+        <input
+          type="text"
+          formControlName="address"
+          placeholder="Nhập địa chỉ chi tiết"
+          class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="pt-6 border-t border-slate-100 flex justify-start">
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="flex items-center gap-3 px-8 py-3 bg-[#5cbce3] hover:bg-[#4aa8cf] text-white font-bold rounded-full shadow-lg shadow-blue-100 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        @if (isLoading()) {
+          <i class="fas fa-spinner animate-spin"></i>
+          <span>Đang lưu...</span>
+        } @else {
+          <i class="fas fa-save"></i>
+          <span>Lưu thông tin</span>
+        }
+      </button>
+    </div>
+  </form>
+</div>

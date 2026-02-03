@@ -1,7 +1,9 @@
 <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
     <div class="flex-shrink-0">
-      <img src="/logo.png" alt="TravelMate" class="h-10 cursor-pointer" />
+      <a [routerLink]="'/'">
+        <img src="/logo.png" alt="TravelMate" class="h-10 cursor-pointer" />
+      </a>
     </div>
 
     <nav class="hidden md:flex items-center space-x-10">
@@ -22,7 +24,7 @@
         Hợp tác với chúng tôi
       </button>
 
-      @if (isLoggedIn) {
+      @if (isLoggedIn()) {
         <div class="flex items-center gap-5">
           <div class="relative cursor-pointer p-1">
             <i class="far fa-bell text-2xl text-gray-700"></i>
@@ -33,16 +35,98 @@
             }
           </div>
 
-          <div
-            class="flex items-center gap-2.5 p-1 pr-3 border border-gray-200 rounded-full cursor-pointer hover:bg-gray-50 transition-all"
-          >
+          <div class="relative">
             <div
-              class="w-9 h-9 bg-[#00a6d2] rounded-full flex items-center justify-center text-white font-bold text-sm"
+              (click)="toggleMenu()"
+              class="flex items-center gap-2.5 p-1 pr-3 border border-gray-200 rounded-full cursor-pointer hover:bg-gray-50 transition-all"
             >
-              {{ userName.charAt(0) }}
+              <div
+                class="w-9 h-9 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-100"
+              >
+                <img
+                  [src]="profilePhotoUrl()"
+                  [alt]="userName()"
+                  class="w-full h-full object-cover"
+                  onerror="this.src = 'avatarDDefault.png'"
+                />
+              </div>
+              <span class="font-bold text-sm text-[#1a2b49]">{{ userName() }}</span>
+              <i
+                class="fas fa-chevron-down text-[10px] text-gray-500 mt-0.5 transition-transform"
+                [class.rotate-180]="isMenuOpen()"
+              ></i>
             </div>
-            <span class="font-bold text-sm text-[#1a2b49]">{{ userName }}</span>
-            <i class="fas fa-chevron-down text-[10px] text-gray-500 mt-0.5"></i>
+
+            @if (isMenuOpen()) {
+              <div
+                class="absolute right-0 mt-3 w-80 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-in fade-in zoom-in duration-200"
+              >
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
+                  <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full border-2 border-white/50 overflow-hidden">
+                      <img
+                        [src]="profilePhotoUrl()"
+                        class="w-full h-full object-cover"
+                        onerror="this.src = 'avatarDDefault.png'"
+                      />
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-lg leading-tight">{{ userName() }}</h4>
+                      <p class="text-xs text-white/80">{{ userEmail() }}</p>
+                      <div
+                        class="mt-2 flex items-center gap-2 bg-black/20 rounded-lg px-2 py-1 w-fit border border-white/10"
+                      >
+                        <i class="fas fa-shield-alt text-[10px]"></i>
+                        <span class="text-[10px] font-bold"
+                          >{{ membershipRank() }} | {{ points() }} điểm</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-2 bg-white">
+                  @for (item of menuItems; track item.label) {
+                    <a
+                      [routerLink]="item.path"
+                      (click)="isMenuOpen.set(false)"
+                      class="flex items-center gap-4 px-4 py-3 mb-1 rounded-2xl transition-all duration-300 group hover:bg-white hover:shadow-md hover:-translate-y-0.5 active:scale-95"
+                    >
+                      <div
+                        class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:text-white group-hover:shadow-lg"
+                        [class]="item.colorClass"
+                      >
+                        <i [class]="item.icon"></i>
+                      </div>
+                      <span
+                        class="font-medium text-gray-700 transition-colors group-hover:text-[#1a2b49]"
+                        >{{ item.label }}</span
+                      >
+
+                      <i
+                        class="fas fa-chevron-right ml-auto text-[10px] text-gray-300 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0"
+                      ></i>
+                    </a>
+                  }
+
+                  <div class="h-px bg-gray-100 my-2 mx-4"></div>
+
+                  <button
+                    (click)="onLogout()"
+                    class="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-50 rounded-2xl transition-colors group text-red-500"
+                  >
+                    <div
+                      class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-all"
+                    >
+                      <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <span class="font-bold">Đăng xuất</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="fixed inset-0 z-[90]" (click)="isMenuOpen.set(false)"></div>
+            }
           </div>
         </div>
       } @else {

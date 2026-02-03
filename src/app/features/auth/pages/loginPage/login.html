@@ -31,10 +31,16 @@
   <button
     type="button"
     (click)="onLogin()"
-    class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
+    [disabled]="isLoading()"
+    class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 disabled:bg-blue-400 disabled:cursor-not-allowed"
   >
-    <span>Đăng nhập</span>
-    <mat-icon class="text-[20px] flex items-center justify-center">arrow_forward</mat-icon>
+    @if (isLoading()) {
+      <mat-icon class="animate-spin text-[20px] flex items-center justify-center">sync</mat-icon>
+      <span>Đang xử lý...</span>
+    } @else {
+      <span>Đăng nhập</span>
+      <mat-icon class="text-[20px] flex items-center justify-center">arrow_forward</mat-icon>
+    }
   </button>
 
   <div class="flex items-center my-6">

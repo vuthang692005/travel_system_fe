@@ -93,3 +93,50 @@
     </div>
   </div>
 </div>
+
+@if (authService.showVerifyModal()) {
+  <div class="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+    <div
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+      (click)="authService.showVerifyModal.set(false)"
+    ></div>
+
+    <div
+      class="relative max-w-md w-full bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/20 animate-in zoom-in-95 duration-300"
+    >
+      <div class="h-2 w-full bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)]"></div>
+
+      <div class="p-10 flex flex-col items-center">
+        <div
+          class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mb-6 text-amber-500"
+        >
+          <mat-icon class="scale-[2]">mail_lock</mat-icon>
+        </div>
+
+        <h2 class="text-2xl font-black text-slate-900 mb-2 text-center">
+          Tài khoản chưa xác thực!
+        </h2>
+        <p class="text-slate-500 mb-8 text-center text-sm px-4 leading-relaxed">
+          Bạn cần xác thực email trước khi đăng nhập. Chúng tôi đã gửi mã kích hoạt lúc bạn đăng ký.
+        </p>
+
+        <div class="w-full space-y-3">
+          <a
+            routerLink="/auth/resend-verification"
+            (click)="authService.showVerifyModal.set(false)"
+            class="flex items-center justify-center w-full py-4 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-2xl shadow-lg transition-all active:scale-[0.98]"
+          >
+            Gửi lại mã xác thực
+          </a>
+
+          <button
+            (click)="authService.showVerifyModal.set(false)"
+            class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-2xl transition-colors"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

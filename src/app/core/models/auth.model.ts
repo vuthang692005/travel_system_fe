@@ -23,3 +23,24 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface UserDetail {
+  userId: string;
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  userdetailId: number;
+  gender: string;
+  dateOfBirth: string;
+  profilePhotoUrl: string;
+  address: string;
+  city: string;
+  country: string;
+  points: number;
+  membershipRank: string;
+  notificationEmail: string;
+  socialAccounts: Array<{
+    provider: string;
+    email: string;
+  }>;
+}

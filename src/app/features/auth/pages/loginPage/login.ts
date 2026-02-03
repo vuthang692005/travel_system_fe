@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { UserService } from '../../../../core/services/user.service';
 import { AuthHeader } from '../../components/auth-header';
 import { InputField } from '../../../../shared/components/input-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +17,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 export class Login {
   private toast = inject(ToastService);
   private authService = inject(AuthService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   email = signal('');
@@ -51,10 +53,23 @@ export class Login {
     this.authService.login({ email: this.email(), password: this.password() }).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.data.accessToken);
-        this.router.navigate(['/']);
+        this.userService.getCurrentUser().subscribe(() => {
+          this.isLoading.set(false);
+          this.router.navigate(['/']);
+        });
       },
       error: (err) => {
-        this.toast.show(err.error?.message || 'Đăng nhập thất bại', 'error');
+        const message = err.error?.message || '';
+
+        // Kiểm tra thông báo lỗi từ backend (Khớp với logic AuthServiceImpl.java của bạn)
+        if (
+          message.includes('Tài khoản chưa được xác thực. Vui lòng kiểm tra email để kích hoạt!')
+        ) {
+          this.authService.showVerifyModal.set(true);
+        } else {
+          this.toast.show(message || 'Đăng nhập thất bại', 'error');
+        }
+
         this.isLoading.set(false);
       },
     });

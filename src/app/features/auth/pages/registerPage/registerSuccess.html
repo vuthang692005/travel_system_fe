@@ -1,0 +1,104 @@
+<div class="relative min-h-screen flex items-center justify-center p-6 overflow-hidden bg-slate-50">
+  <div
+    class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-sky-300/30 rounded-full mix-blend-multiply filter blur-[80px] animate-pulse"
+  ></div>
+  <div
+    class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-300/30 rounded-full mix-blend-multiply filter blur-[80px] animate-pulse delay-700"
+  ></div>
+  <div
+    class="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-indigo-200/40 rounded-full mix-blend-multiply filter blur-[60px] animate-bounce duration-[10s]"
+  ></div>
+
+  <div class="relative max-w-md w-full">
+    <div
+      class="bg-white/70 backdrop-blur-2xl rounded-[3rem] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] border border-white/60 overflow-hidden transform transition-all"
+    >
+      <div class="bg-gradient-to-b from-white/80 to-transparent px-8 pt-12 pb-6 text-center">
+        <div
+          class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-tr from-sky-400 to-blue-500 text-white rounded-[2rem] mb-6 shadow-2xl shadow-sky-200 rotate-3 hover:rotate-0 transition-transform duration-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"
+            />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-black text-slate-800 mb-3 tracking-tight">Kiểm tra Mail nhé!</h2>
+        <p class="text-slate-600 text-sm leading-relaxed px-4">
+          Cảm ơn bạn đã gia nhập <span class="text-sky-600 font-bold">TravelMate</span>. Một liên
+          kết xác nhận đã được gửi đi, hãy nhấn vào đó để bắt đầu hành trình.
+        </p>
+      </div>
+
+      <div class="px-10 pb-12">
+        <div
+          class="flex items-start p-4 bg-white/50 border border-white rounded-3xl mb-10 shadow-sm"
+        >
+          <div class="bg-amber-100/80 p-2 rounded-xl mr-4 flex-shrink-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-amber-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <p class="text-[12px] text-slate-500 italic leading-snug">
+            Mách nhỏ: Nếu không thấy, hãy "ghé thăm" mục <strong>Spam</strong> hoặc
+            <strong>Quảng cáo</strong> nhé!
+          </p>
+        </div>
+
+        <div class="group relative">
+          <div
+            class="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500"
+          ></div>
+          <a
+            routerLink="/auth"
+            class="relative flex items-center justify-center w-full py-4 bg-slate-900 hover:bg-black text-white font-bold rounded-2xl transition-all duration-300"
+          >
+            Quay lại Đăng nhập
+          </a>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-slate-200/50 text-center">
+          <p class="text-slate-400 text-[13px] mb-2 font-medium">Bạn vẫn chưa nhận được thư?</p>
+          <a
+            routerLink="/auth/resend-verification"
+            class="text-sky-500 text-sm font-bold hover:text-sky-700 transition-all inline-flex items-center group"
+          >
+            Gửi lại yêu cầu xác thực
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
