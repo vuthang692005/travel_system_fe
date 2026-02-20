@@ -1,0 +1,66 @@
+<div class="max-w-6xl mx-auto py-16 lg:py-10">
+  <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="animate-in fade-in slide-in-from-left-6 duration-700">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-black uppercase tracking-wider mb-6"
+      >
+        <span class="relative flex h-2 w-2">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+        </span>
+        Chương trình đối tác chiến lược
+      </div>
+
+      <h1 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-6">
+        Cùng BVTRAVEL <br />
+        <span class="text-blue-600">Kiến tạo tương lai</span> <br />
+        du lịch số.
+      </h1>
+
+      <p class="text-lg text-slate-500 mb-8 leading-relaxed">
+        Chúng tôi cung cấp nền tảng công nghệ mạnh mẽ giúp bạn tiếp cận hàng triệu du khách. Đăng ký
+        để trở thành một phần của mạng lưới du lịch lớn nhất Việt Nam ngay hôm nay.
+      </p>
+
+      <div class="space-y-4 mb-10">
+        @for (perk of perks(); track perk.text) {
+          <div class="flex items-center gap-3 text-slate-700 font-medium">
+            <div
+              class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"
+            >
+              <mat-icon class="!text-[14px] !w-3.5 !h-3.5 flex items-center justify-center">{{
+                perk.icon
+              }}</mat-icon>
+            </div>
+            {{ perk.text }}
+          </div>
+        }
+      </div>
+
+      <div class="flex items-center gap-4">
+        <app-button
+          label="Đăng ký ngay"
+          icon="rocket_launch"
+          bgColor="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 shadow-xl shadow-blue-600/20"
+          (onClick)="onRegister()"
+        />
+      </div>
+    </div>
+
+    <div class="relative animate-in fade-in slide-in-from-right-6 duration-700">
+      <div class="relative z-10 rounded-[40px] overflow-hidden shadow-2xl shadow-blue-900/10">
+        <img
+          src="/LuxuryResortPool.avif"
+          alt="Partnership"
+          class="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700"
+        />
+      </div>
+
+      <div
+        class="absolute -top-10 -right-10 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl -z-10"
+      ></div>
+    </div>
+  </div>
+</div>

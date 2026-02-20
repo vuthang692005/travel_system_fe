@@ -1,18 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule],
   template: `
     <button
       type="button"
       (click)="!isLoading && handleButtonClick()"
       [disabled]="isLoading"
       [class]="
-        'flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl transition-all font-medium ' +
+        'flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl transition-all font-medium cursor-pointer ' +
         (isLoading ? 'opacity-70 cursor-not-allowed ' : 'active:scale-95 ') +
         bgColor
       "

@@ -58,6 +58,7 @@ export class Header {
 
   onLogout() {
     this.userStore.clearUser();
+    localStorage.removeItem('token');
     this.isMenuOpen.set(false);
     this.router.navigate(['/auth']);
   }

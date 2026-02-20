@@ -50,6 +50,7 @@ export class ProfileLayout {
 
   onLogout() {
     this.userStore.clearUser();
+    localStorage.removeItem('token');
     this.router.navigate(['/auth']);
   }
 }
