@@ -10,6 +10,8 @@ import { noAuthGuard } from './core/guards/no-auth.guard';
 import { ProfileLayout } from './layouts/profileLayout/ProfileLayout';
 import { UserProfileComponent } from './features/profile/pages/userProfile/userProfile';
 import { MembershipComponent } from './features/profile/pages/membership/membership';
+import { PartnershipForms } from './features/partnership/pages/partnershipForm/partnershipForm';
+import { PartnershipPage } from './features/partnership/pages/partnershipPage/partnershipPage';
 
 export const routes: Routes = [
   {
@@ -32,6 +34,14 @@ export const routes: Routes = [
           { path: '', component: UserProfileComponent },
           { path: 'membership', component: MembershipComponent },
         ],
+      },
+      {
+        path: 'partnershipForm',
+        component: PartnershipForms,
+      },
+      {
+        path: 'partnershipPage',
+        component: PartnershipPage,
       },
     ],
   },

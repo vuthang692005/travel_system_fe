@@ -1,0 +1,449 @@
+<div class="max-w-4xl mx-auto py-10 px-4">
+  <div class="flex items-center justify-between mb-10 relative">
+    <div class="absolute top-5 left-0 w-full h-0.5 bg-slate-100 -z-10"></div>
+    @for (step of [1, 2, 3, 4]; track step) {
+      <div class="flex flex-col items-center gap-2 px-3">
+        <div
+          [class]="
+            'w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all ' +
+            (currentStep() >= step
+              ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
+              : 'bg-white border-slate-200 text-slate-400')
+          "
+        >
+          @if (currentStep() > step || (currentStep() === 4 && step === 4)) {
+            <mat-icon class="text-sm">check</mat-icon>
+          } @else {
+            {{ step }}
+          }
+        </div>
+        <span class="text-[10px] font-bold uppercase text-slate-400">Bước {{ step }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+    <div class="p-8 md:p-12">
+      @if (currentStep() === 1) {
+        <div class="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <h2 class="text-2xl font-black text-slate-800 border-b pb-4">1. Thông tin cá nhân</h2>
+
+          <div class="grid grid-cols-1 gap-6 pt-4">
+            <div class="relative">
+              <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                >person</mat-icon
+              >
+              <input
+                [value]="formData().personalFullName"
+                disabled
+                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed"
+              />
+              <label
+                class="absolute left-11 -top-2.5 px-2 bg-white text-[10px] font-bold text-slate-400"
+                >Họ và tên</label
+              >
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="relative">
+                <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                  >email</mat-icon
+                >
+                <input
+                  [value]="formData().personalEmail"
+                  disabled
+                  class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed"
+                />
+                <label
+                  class="absolute left-11 -top-2.5 px-2 bg-white text-[10px] font-bold text-slate-400"
+                  >Email</label
+                >
+              </div>
+              <div class="relative">
+                <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                  >phone</mat-icon
+                >
+                <input
+                  [value]="formData().personalPhone"
+                  disabled
+                  class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed"
+                />
+                <label
+                  class="absolute left-11 -top-2.5 px-2 bg-white text-[10px] font-bold text-slate-400"
+                  >Số điện thoại</label
+                >
+              </div>
+            </div>
+
+            <div class="relative group">
+              <mat-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                [class.text-red-500]="errors()['personalDob']"
+                >cake</mat-icon
+              >
+              <input
+                type="date"
+                disabled
+                [value]="formData().personalDob"
+                (input)="updateField('personalDob', $event)"
+                class="w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl bg-slate-50 text-slate-500 cursor-not-allowed"
+                [class.border-red-500]="errors()['personalDob']"
+              />
+              <label
+                class="absolute left-11 -top-2.5 px-2 bg-white text-[10px] font-bold text-slate-400"
+                [class.text-red-500]="errors()['personalDob']"
+                >Ngày sinh</label
+              >
+              @if (errors()['personalDob']) {
+                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['personalDob'] }}</p>
+              }
+            </div>
+
+            <div class="relative group">
+              <mat-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                [class.text-red-500]="errors()['personalIdCard']"
+                >badge</mat-icon
+              >
+              <input
+                type="text"
+                [value]="formData().personalIdCard"
+                placeholder=" "
+                (input)="updateField('personalIdCard', $event)"
+                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
+                [class.border-red-500]="errors()['personalIdCard']"
+              />
+              <label
+                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                [class.text-red-500]="errors()['personalIdCard']"
+                >Số CCCD</label
+              >
+              @if (errors()['personalIdCard']) {
+                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['personalIdCard'] }}</p>
+              }
+            </div>
+
+            <div class="relative group">
+              <mat-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                [class.text-red-500]="errors()['hometownAddress']"
+                >home</mat-icon
+              >
+              <input
+                type="text"
+                [value]="formData().hometownAddress"
+                placeholder=" "
+                (input)="updateField('hometownAddress', $event)"
+                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
+                [class.border-red-500]="errors()['hometownAddress']"
+              />
+              <label
+                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                [class.text-red-500]="errors()['hometownAddress']"
+                >Quê quán</label
+              >
+              @if (errors()['hometownAddress']) {
+                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['hometownAddress'] }}</p>
+              }
+            </div>
+
+            <div class="relative group">
+              <mat-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                [class.text-red-500]="errors()['permanentAddress']"
+                >location_on</mat-icon
+              >
+              <input
+                type="text"
+                [value]="formData().permanentAddress"
+                placeholder=" "
+                (input)="updateField('permanentAddress', $event)"
+                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
+                [class.border-red-500]="errors()['permanentAddress']"
+              />
+              <label
+                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                [class.text-red-500]="errors()['permanentAddress']"
+                >Địa chỉ thường trú</label
+              >
+              @if (errors()['permanentAddress']) {
+                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['permanentAddress'] }}</p>
+              }
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div>
+                <label
+                  class="flex flex-col items-center justify-center h-48 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all overflow-hidden relative group"
+                  [class.border-red-500]="errors()['cardFrontImage']"
+                >
+                  @if (previews().cardFrontImage) {
+                    <img [src]="previews().cardFrontImage" class="w-full h-full object-cover" />
+                    <div
+                      class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity"
+                    >
+                      Thay đổi mặt trước
+                    </div>
+                  } @else {
+                    <mat-icon
+                      class="text-slate-400 mb-2 scale-125"
+                      [class.text-red-500]="errors()['cardFrontImage']"
+                      >add_a_photo</mat-icon
+                    >
+                    <span
+                      class="text-xs font-bold text-slate-600 uppercase"
+                      [class.text-red-500]="errors()['cardFrontImage']"
+                      >Mặt trước CCCD</span
+                    >
+                  }
+                  <input
+                    type="file"
+                    class="hidden"
+                    (change)="onFileChange('cardFrontImage', $event)"
+                    accept="image/*"
+                  />
+                </label>
+                @if (errors()['cardFrontImage']) {
+                  <p class="text-red-500 text-[10px] mt-1 text-center">
+                    {{ errors()['cardFrontImage'] }}
+                  </p>
+                }
+              </div>
+              <div>
+                <label
+                  class="flex flex-col items-center justify-center h-48 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all overflow-hidden relative group"
+                  [class.border-red-500]="errors()['cardBackImage']"
+                >
+                  @if (previews().cardBackImage) {
+                    <img [src]="previews().cardBackImage" class="w-full h-full object-cover" />
+                    <div
+                      class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity"
+                    >
+                      Thay đổi mặt sau
+                    </div>
+                  } @else {
+                    <mat-icon
+                      class="text-slate-400 mb-2 scale-125"
+                      [class.text-red-500]="errors()['cardBackImage']"
+                      >add_a_photo</mat-icon
+                    >
+                    <span
+                      class="text-xs font-bold text-slate-600 uppercase"
+                      [class.text-red-500]="errors()['cardBackImage']"
+                      >Mặt sau CCCD</span
+                    >
+                  }
+                  <input
+                    type="file"
+                    class="hidden"
+                    (change)="onFileChange('cardBackImage', $event)"
+                    accept="image/*"
+                  />
+                </label>
+                @if (errors()['cardBackImage']) {
+                  <p class="text-red-500 text-[10px] mt-1 text-center">
+                    {{ errors()['cardBackImage'] }}
+                  </p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (currentStep() === 2) {
+        <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <h2 class="text-2xl font-black text-slate-800 border-b pb-4">2. Thông tin kinh doanh</h2>
+          <div>
+            <div class="relative group">
+              <mat-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600"
+                [class.text-red-500]="errors()['businessLicenseNumber']"
+                >business</mat-icon
+              >
+              <input
+                type="text"
+                [value]="formData().businessLicenseNumber"
+                placeholder=" "
+                (input)="updateField('businessLicenseNumber', $event)"
+                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-emerald-600 outline-none transition-all"
+                [class.border-red-500]="errors()['businessLicenseNumber']"
+              />
+              <label
+                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-green-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-green-600"
+                [class.text-red-500]="errors()['businessLicenseNumber']"
+                >Mã số đăng ký kinh doanh</label
+              >
+            </div>
+            @if (errors()['businessLicenseNumber']) {
+              <p class="text-red-500 text-[10px] mt-1 ml-4">
+                {{ errors()['businessLicenseNumber'] }}
+              </p>
+            }
+          </div>
+
+          <div>
+            <label
+              class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all overflow-hidden relative group"
+              [class.border-red-500]="errors()['businessLicenseImage']"
+            >
+              @if (previews().businessLicenseImage) {
+                <img [src]="previews().businessLicenseImage" class="w-full h-full object-cover" />
+                <div
+                  class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold transition-opacity"
+                >
+                  Thay đổi giấy phép
+                </div>
+              } @else {
+                <mat-icon
+                  class="text-slate-400 mb-2 scale-150"
+                  [class.text-red-500]="errors()['businessLicenseImage']"
+                  >upload_file</mat-icon
+                >
+                <span
+                  class="text-sm font-bold text-slate-600"
+                  [class.text-red-500]="errors()['businessLicenseImage']"
+                  >Tải lên Ảnh giấy phép kinh doanh</span
+                >
+              }
+              <input
+                type="file"
+                class="hidden"
+                (change)="onFileChange('businessLicenseImage', $event)"
+                accept="image/*"
+              />
+            </label>
+            @if (errors()['businessLicenseImage']) {
+              <p class="text-red-500 text-[10px] mt-1 text-center">
+                {{ errors()['businessLicenseImage'] }}
+              </p>
+            }
+          </div>
+        </div>
+      } @else if (currentStep() === 3) {
+        <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <h2 class="text-2xl font-black text-slate-800 border-b pb-4">3. Kiểm tra hồ sơ</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="space-y-6">
+              <div class="space-y-3">
+                <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                  Định danh cá nhân
+                </h3>
+                <div
+                  class="bg-slate-50 rounded-2xl p-6 space-y-3 border border-slate-100 shadow-sm text-sm"
+                >
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>Họ tên:</strong> <span>{{ formData().personalFullName }}</span>
+                  </p>
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>Email:</strong> <span>{{ formData().personalEmail }}</span>
+                  </p>
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>SĐT:</strong> <span>{{ formData().personalPhone }}</span>
+                  </p>
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>Số CCCD:</strong> <span>{{ formData().personalIdCard }}</span>
+                  </p>
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>Ngày sinh:</strong> <span>{{ formData().personalDob }}</span>
+                  </p>
+                  <p class="flex justify-between border-b border-slate-200 pb-2">
+                    <strong>Quê quán:</strong> <span>{{ formData().hometownAddress }}</span>
+                  </p>
+                  <p class="flex justify-between">
+                    <strong>Địa chỉ:</strong> <span>{{ formData().permanentAddress }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <h3 class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                  Thông tin doanh nghiệp
+                </h3>
+                <div
+                  class="bg-emerald-50 rounded-2xl p-6 border border-emerald-100 shadow-sm text-sm"
+                >
+                  <p class="flex justify-between">
+                    <span>Mã số kinh doanh:</span>
+                    <strong>{{ formData().businessLicenseNumber }}</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-5">
+              <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                Tài liệu hình ảnh
+              </h3>
+              <div class="grid grid-cols-1 gap-4">
+                @for (
+                  img of [
+                    { p: previews().cardFrontImage, l: 'Mặt trước' },
+                    { p: previews().cardBackImage, l: 'Mặt sau' },
+                    { p: previews().businessLicenseImage, l: 'Giấy phép' },
+                  ];
+                  track img.l
+                ) {
+                  <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase ml-1">{{
+                      img.l
+                    }}</span>
+                    <div
+                      class="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner"
+                    >
+                      @if (img.p) {
+                        <img [src]="img.p" class="w-full h-full object-cover" />
+                      } @else {
+                        <div
+                          class="w-full h-full flex items-center justify-center text-slate-400 italic text-xs"
+                        >
+                          Trống
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (currentStep() === 4) {
+        <div class="text-center py-12 animate-in zoom-in duration-500">
+          <div
+            class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-emerald-100"
+          >
+            <mat-icon class="scale-[2.5]">verified</mat-icon>
+          </div>
+          <h2 class="text-4xl font-black text-slate-900 mb-3">Gửi hồ sơ thành công!</h2>
+          <p class="text-slate-500 mb-10">
+            Cảm ơn bạn. Hồ sơ của bạn đã được chuyển đến bộ phận xét duyệt.
+          </p>
+          <div class="flex justify-center">
+            <app-button
+              label="Về trang chủ"
+              icon="home"
+              bgColor="bg-slate-900 text-white px-10"
+              routerLink="/"
+            />
+          </div>
+        </div>
+      }
+
+      @if (currentStep() < 4) {
+        <div class="flex justify-between items-center mt-12 pt-8 border-t border-slate-100">
+          <button
+            (click)="back()"
+            [disabled]="isSubmitting()"
+            [class.invisible]="currentStep() === 1"
+            class="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-900 transition-colors"
+          >
+            <mat-icon>west</mat-icon> Quay lại
+          </button>
+          <app-button
+            [label]="currentStep() === 3 ? 'Gửi hồ sơ ngay' : 'Tiếp theo'"
+            [icon]="currentStep() === 3 ? 'send' : 'east'"
+            [isLoading]="isSubmitting()"
+            [bgColor]="currentStep() === 3 ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'"
+            (onClick)="currentStep() === 3 ? onSubmit() : next()"
+          />
+        </div>
+      }
+    </div>
+  </div>
+</div>

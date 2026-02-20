@@ -19,7 +19,8 @@
 
     <div class="flex items-center gap-6">
       <button
-        class="px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors text-[#1a2b49]"
+        [routerLink]="'/partnershipPage'"
+        class="cursor-pointer px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors text-[#1a2b49]"
       >
         Hợp tác với chúng tôi
       </button>
@@ -113,7 +114,7 @@
 
                   <button
                     (click)="onLogout()"
-                    class="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-50 rounded-2xl transition-colors group text-red-500"
+                    class="cursor-pointer w-full flex items-center gap-4 px-4 py-3 hover:bg-red-50 rounded-2xl transition-colors group text-red-500"
                   >
                     <div
                       class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-all"

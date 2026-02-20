@@ -54,4 +54,19 @@ export class UserService {
         }),
       );
   }
+
+  getRoles(): string[] {
+    const token = localStorage.getItem('token');
+    if (!token) return [];
+    try {
+      const roles = JSON.parse(atob(token.split('.')[1])).roles;
+      return roles ? roles.split(',') : [];
+    } catch {
+      return [];
+    }
+  }
+
+  hasRole(role: string): boolean {
+    return this.getRoles().includes(role);
+  }
 }
