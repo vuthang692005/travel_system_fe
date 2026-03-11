@@ -30,8 +30,8 @@ export class UserService {
       }),
       catchError((error) => {
         // Nếu status != 2xx (ví dụ 401, 403, 500), nó sẽ nhảy vào đây
-        console.error('Lỗi lấy thông tin user:', error);
         this.userStore.clearUser();
+        localStorage.removeItem('token');
         return of(null);
       }),
     );
@@ -67,6 +67,7 @@ export class UserService {
   }
 
   hasRole(role: string): boolean {
+    console.log('User roles:', this.getRoles());
     return this.getRoles().includes(role);
   }
 }

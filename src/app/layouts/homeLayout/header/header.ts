@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserStore } from '../../../store/user.store';
-import { Router } from '@angular/router';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'home-header',
@@ -11,11 +11,14 @@ import { Router } from '@angular/router';
 })
 export class Header {
   private userStore = inject(UserStore);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   isLoggedIn = this.userStore.isLoggedIn;
   HasNotification: boolean = false;
   userDetail = this.userStore.user;
+  isAdmin = this.userService.hasRole('ROLE_ADMIN');
+  isOwner = this.userService.hasRole('ROLE_OWNER');
 
   userName = computed(() => this.userDetail()?.fullName || 'FullName');
   userEmail = computed(() => this.userDetail()?.email || 'Email');
@@ -55,6 +58,18 @@ export class Header {
     { label: 'Khuyến mãi', path: '/promotion' },
     { label: 'Về chúng tôi', path: '/about' },
   ];
+
+  roleBasedLink: { label: string; path: string } | null = null;
+
+  constructor() {
+    if (this.isAdmin) {
+      this.roleBasedLink = { label: 'Trang quản trị', path: '/admin' };
+    } else if (this.isOwner) {
+      this.roleBasedLink = { label: 'Trang quản lý', path: '/owner' };
+    } else {
+      this.roleBasedLink = { label: 'Hợp tác với chúng tôi', path: '/partnershipPage' };
+    }
+  }
 
   onLogout() {
     this.userStore.clearUser();

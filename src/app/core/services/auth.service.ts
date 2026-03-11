@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { UserStore } from '../../store/user.store';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

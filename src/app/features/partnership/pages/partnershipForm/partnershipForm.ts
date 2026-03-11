@@ -57,6 +57,12 @@ export class PartnershipForms {
     businessLicenseImage: '' as SafeUrl | string,
   });
 
+  selectedPreviewImage = signal<SafeUrl | string | null>(null);
+
+  toggleLightbox(url: SafeUrl | string | null) {
+    this.selectedPreviewImage.set(url);
+  }
+
   updateField(field: keyof PartnershipForm, event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.formData.update((prev) => ({ ...prev, [field]: value }));

@@ -8,7 +8,6 @@ interface TierBenefit {
 }
 
 interface TierInfo {
-  id: string;
   name: string;
   minPoints: number;
   benefits: TierBenefit[];
@@ -26,14 +25,13 @@ export class MembershipComponent {
   // Lấy dữ liệu từ Store
   user = this.userStore.user;
   currentPoints = computed(() => this.user()?.points || 0);
-  currentRank = computed(() => this.user()?.membershipRank || 'BRONZE');
+  currentRank = computed(() => this.user()?.membershipRank || 'Hạng đồng');
   userName = computed(() => this.user()?.fullName || 'Người dùng');
 
   // Danh sách các hạng thành viên
   tiers: TierInfo[] = [
     {
-      id: 'BRONZE',
-      name: 'Hạng Đồng',
+      name: 'Hạng đồng',
       minPoints: 0,
       benefits: [
         { icon: 'fa-coins', text: 'Tích điểm 1.000đ = 1 điểm' },
@@ -42,8 +40,7 @@ export class MembershipComponent {
       ],
     },
     {
-      id: 'SILVER',
-      name: 'Hạng Bạc',
+      name: 'Hạng bạc',
       minPoints: 1000,
       benefits: [
         { icon: 'fa-coins', text: 'Tích điểm 1.000đ = 1.2 điểm' },
@@ -52,8 +49,7 @@ export class MembershipComponent {
       ],
     },
     {
-      id: 'GOLD',
-      name: 'Hạng Vàng',
+      name: 'Hạng vàng',
       minPoints: 5000,
       benefits: [
         { icon: 'fa-coins', text: 'Tích điểm 1.000đ = 1.5 điểm' },
@@ -62,8 +58,7 @@ export class MembershipComponent {
       ],
     },
     {
-      id: 'DIAMOND',
-      name: 'Hạng Kim Cương',
+      name: 'Hạng kim cương',
       minPoints: 10000,
       benefits: [
         { icon: 'fa-coins', text: 'Tích điểm 1.000đ = 2 điểm' },
@@ -76,7 +71,7 @@ export class MembershipComponent {
   // Quản lý hạng đang xem quyền lợi
   selectedTierId = signal<string>(this.currentRank());
   selectedTier = computed(
-    () => this.tiers.find((t) => t.id === this.selectedTierId()) || this.tiers[0],
+    () => this.tiers.find((t) => t.name === this.selectedTierId()) || this.tiers[0],
   );
 
   // Tính toán tiến trình thăng hạng

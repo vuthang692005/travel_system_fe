@@ -12,6 +12,9 @@ import { UserProfileComponent } from './features/profile/pages/userProfile/userP
 import { MembershipComponent } from './features/profile/pages/membership/membership';
 import { PartnershipForms } from './features/partnership/pages/partnershipForm/partnershipForm';
 import { PartnershipPage } from './features/partnership/pages/partnershipPage/partnershipPage';
+import { AdminLayout } from './layouts/adminLayout/admin-layout';
+import { OwnerApplicationsList } from './features/owner-applications/pages/owner-applications';
+import { OwnerLayout } from './layouts/onwerLayout/owner-layout';
 
 export const routes: Routes = [
   {
@@ -56,5 +59,14 @@ export const routes: Routes = [
   {
     path: 'auth/register-success',
     component: RegisterSuccess,
+  },
+  {
+    path: 'admin',
+    component: AdminLayout,
+    children: [{ path: 'owner-applications', component: OwnerApplicationsList }],
+  },
+  {
+    path: 'owner',
+    component: OwnerLayout,
   },
 ];

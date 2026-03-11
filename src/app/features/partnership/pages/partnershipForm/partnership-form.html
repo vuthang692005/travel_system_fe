@@ -99,75 +99,102 @@
               }
             </div>
 
-            <div class="relative group">
-              <mat-icon
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
-                [class.text-red-500]="errors()['personalIdCard']"
-                >badge</mat-icon
-              >
-              <input
-                type="text"
-                [value]="formData().personalIdCard"
-                placeholder=" "
-                (input)="updateField('personalIdCard', $event)"
-                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
-                [class.border-red-500]="errors()['personalIdCard']"
-              />
-              <label
-                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
-                [class.text-red-500]="errors()['personalIdCard']"
-                >Số CCCD</label
-              >
+            <div class="w-full">
+              <div class="relative group">
+                <mat-icon
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                  [class.text-red-500]="errors()['personalIdCard']"
+                  >badge</mat-icon
+                >
+
+                <input
+                  type="text"
+                  [value]="formData().personalIdCard"
+                  placeholder=" "
+                  (input)="updateField('personalIdCard', $event)"
+                  class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
+                  [class.border-red-500]="errors()['personalIdCard']"
+                />
+
+                <label
+                  class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                  [class.text-red-500]="errors()['personalIdCard']"
+                  >Số CCCD</label
+                >
+              </div>
+
               @if (errors()['personalIdCard']) {
-                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['personalIdCard'] }}</p>
+                <p
+                  class="text-red-500 text-[10px] mt-1 ml-4 animate-in fade-in slide-in-from-top-1 duration-200"
+                >
+                  {{ errors()['personalIdCard'] }}
+                </p>
               }
             </div>
 
-            <div class="relative group">
-              <mat-icon
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
-                [class.text-red-500]="errors()['hometownAddress']"
-                >home</mat-icon
-              >
-              <input
-                type="text"
-                [value]="formData().hometownAddress"
-                placeholder=" "
-                (input)="updateField('hometownAddress', $event)"
-                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
-                [class.border-red-500]="errors()['hometownAddress']"
-              />
-              <label
-                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
-                [class.text-red-500]="errors()['hometownAddress']"
-                >Quê quán</label
-              >
+            <div class="w-full">
+              <div class="relative group">
+                <mat-icon
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                  [class.text-red-500]="errors()['hometownAddress']"
+                  >home</mat-icon
+                >
+
+                <input
+                  type="text"
+                  [value]="formData().hometownAddress"
+                  placeholder=" "
+                  (input)="updateField('hometownAddress', $event)"
+                  class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
+                  [class.border-red-500]="errors()['hometownAddress']"
+                />
+
+                <label
+                  class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                  [class.text-red-500]="errors()['hometownAddress']"
+                  >Quê quán</label
+                >
+              </div>
+
               @if (errors()['hometownAddress']) {
-                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['hometownAddress'] }}</p>
+                <p
+                  class="text-red-500 text-[10px] mt-1 ml-4 animate-in fade-in slide-in-from-top-1 duration-200"
+                >
+                  {{ errors()['hometownAddress'] }}
+                </p>
               }
             </div>
 
-            <div class="relative group">
-              <mat-icon
-                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
-                [class.text-red-500]="errors()['permanentAddress']"
-                >location_on</mat-icon
-              >
-              <input
-                type="text"
-                [value]="formData().permanentAddress"
-                placeholder=" "
-                (input)="updateField('permanentAddress', $event)"
-                class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none"
-                [class.border-red-500]="errors()['permanentAddress']"
-              />
-              <label
-                class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
-                [class.text-red-500]="errors()['permanentAddress']"
-                >Địa chỉ thường trú</label
-              >
+            <div class="w-full">
+              <div class="relative group">
+                <mat-icon
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600"
+                  [class.text-red-500]="errors()['permanentAddress']"
+                  >location_on</mat-icon
+                >
+
+                <input
+                  type="text"
+                  [value]="formData().permanentAddress"
+                  placeholder=" "
+                  (input)="updateField('permanentAddress', $event)"
+                  class="peer w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:border-blue-600 outline-none transition-all"
+                  [class.border-red-500]="errors()['permanentAddress']"
+                />
+
+                <label
+                  class="absolute left-11 top-1/2 -translate-y-1/2 px-2 bg-white text-slate-400 text-sm transition-all peer-focus:-top-0.5 peer-focus:text-[10px] peer-focus:font-bold peer-focus:text-blue-600 peer-[:not(:placeholder-shown)]:-top-0.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:text-blue-600"
+                  [class.text-red-500]="errors()['permanentAddress']"
+                  >Địa chỉ thường trú</label
+                >
+              </div>
+
               @if (errors()['permanentAddress']) {
-                <p class="text-red-500 text-[10px] mt-1 ml-4">{{ errors()['permanentAddress'] }}</p>
+                <p
+                  class="text-red-500 text-[10px] mt-1 ml-4 animate-in fade-in slide-in-from-top-1 duration-200"
+                >
+                  {{ errors()['permanentAddress'] }}
+                </p>
               }
             </div>
 
@@ -385,10 +412,20 @@
                       img.l
                     }}</span>
                     <div
-                      class="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner"
+                      (click)="img.p ? selectedPreviewImage.set(img.p) : null"
+                      [class.cursor-zoom-in]="img.p"
+                      class="group relative aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner transition-all hover:border-blue-400"
                     >
                       @if (img.p) {
                         <img [src]="img.p" class="w-full h-full object-cover" />
+                        <div
+                          class="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors flex items-center justify-center"
+                        >
+                          <mat-icon
+                            class="text-white opacity-0 group-hover:opacity-100 scale-125 transition-all"
+                            >zoom_in</mat-icon
+                          >
+                        </div>
                       } @else {
                         <div
                           class="w-full h-full flex items-center justify-center text-slate-400 italic text-xs"
@@ -403,6 +440,35 @@
             </div>
           </div>
         </div>
+
+        @if (selectedPreviewImage()) {
+          <div
+            (click)="selectedPreviewImage.set(null)"
+            class="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center p-4 cursor-zoom-out animate-in fade-in duration-300"
+          >
+            <button
+              class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+              (click)="selectedPreviewImage.set(null)"
+            >
+              <mat-icon class="scale-150">close</mat-icon>
+            </button>
+
+            <div
+              class="relative max-w-7xl max-h-[85vh] flex items-center justify-center"
+              (click)="$event.stopPropagation()"
+            >
+              <img
+                [src]="selectedPreviewImage()!"
+                class="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300 border-4 border-white/10"
+              />
+              <div class="absolute -bottom-10 left-0 right-0 text-center">
+                <p class="text-white/60 text-xs font-bold uppercase tracking-widest">
+                  Bấm ra ngoài để đóng
+                </p>
+              </div>
+            </div>
+          </div>
+        }
       } @else if (currentStep() === 4) {
         <div class="text-center py-12 animate-in zoom-in duration-500">
           <div

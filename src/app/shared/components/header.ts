@@ -1,32 +1,40 @@
-<header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    <div class="flex-shrink-0">
-      <a [routerLink]="'/'">
-        <img src="/logo.png" alt="TravelMate" class="h-10 cursor-pointer" />
-      </a>
-    </div>
+import { Component, inject, computed, signal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { UserStore } from '../../store/user.store';
+import { Router, RouterLink } from '@angular/router';
 
-    <nav class="hidden md:flex items-center space-x-10">
-      @for (link of navLinks; track link.label) {
-        <a
-          [routerLink]="link.path"
-          class="text-[#1a2b49] font-bold hover:text-blue-500 transition-colors flex items-center gap-1"
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [MatIconModule, RouterLink],
+  template: `
+    <header
+      class="h-17 bg-white border-b border-gray-100 flex items-center justify-between px-10 z-40"
+    >
+      <div class="flex items-center gap-4"></div>
+
+      <div class="flex items-center gap-6">
+        <button
+          routerLink="/"
+          class="flex items-center gap-2 cursor-pointer px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-all text-[#1a2b49] group"
         >
-          {{ link.label }}
-        </a>
-      }
-    </nav>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 transition-transform"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Về trang chủ</span>
+        </button>
 
-    <div class="flex items-center gap-6">
-      <button
-        [routerLink]="roleBasedLink?.path"
-        class="cursor-pointer px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors text-[#1a2b49]"
-      >
-        {{ roleBasedLink?.label }}
-      </button>
-
-      @if (isLoggedIn()) {
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-8">
           <div class="relative cursor-pointer p-1">
             <i class="far fa-bell text-2xl text-gray-700"></i>
             @if (HasNotification) {
@@ -130,22 +138,53 @@
             }
           </div>
         </div>
-      } @else {
-        <div class="flex items-center gap-3">
-          <button
-            routerLink="/auth"
-            class="px-4 py-2 text-sm font-bold text-[#1a2b49] hover:text-blue-600 transition-colors"
-          >
-            Đăng nhập
-          </button>
-          <button
-            routerLink="/auth/register"
-            class="px-6 py-2.5 bg-[#00a6d2] text-white text-sm font-bold rounded-xl hover:bg-[#008db3] transition-colors shadow-sm"
-          >
-            Đăng ký
-          </button>
-        </div>
-      }
-    </div>
-  </div>
-</header>
+      </div>
+    </header>
+  `,
+})
+export class Header {
+  private userStore = inject(UserStore);
+  userDetail = this.userStore.user;
+  private router = inject(Router);
+
+  HasNotification: boolean = false;
+  isMenuOpen = signal(false);
+
+  userName = computed(() => this.userDetail()?.fullName || 'FullName');
+  userEmail = computed(() => this.userDetail()?.email || 'Email');
+  membershipRank = computed(() => this.userDetail()?.membershipRank || 'Hạng Đồng');
+  points = computed(() => this.userDetail()?.points || 0);
+  profilePhotoUrl = computed(() => this.userDetail()?.profilePhotoUrl || '/avatarDefault.jpg');
+
+  menuItems = [
+    {
+      label: 'Hồ sơ cá nhân',
+      path: '/profile',
+      icon: 'far fa-user',
+      colorClass: 'bg-blue-50 text-blue-500 group-hover:bg-blue-500 shadow-sm',
+    },
+    {
+      label: 'Hạng thành viên & Điểm',
+      path: '/profile/membership',
+      icon: 'fas fa-crown text-sm',
+      colorClass: 'bg-amber-50 text-amber-500 group-hover:bg-amber-500 shadow-sm',
+    },
+    {
+      label: 'Lịch sử đặt chỗ',
+      path: '/profile/history',
+      icon: 'far fa-calendar-alt',
+      colorClass: 'bg-purple-50 text-purple-500 group-hover:bg-purple-500 shadow-sm',
+    },
+  ];
+
+  toggleMenu() {
+    this.isMenuOpen.update((v) => !v);
+  }
+
+  onLogout() {
+    this.userStore.clearUser();
+    localStorage.removeItem('token');
+    this.isMenuOpen.set(false);
+    this.router.navigate(['/auth']);
+  }
+}
