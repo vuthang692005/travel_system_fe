@@ -15,6 +15,18 @@ import { PartnershipPage } from './features/partnership/pages/partnershipPage/pa
 import { AdminLayout } from './layouts/adminLayout/admin-layout';
 import { OwnerApplicationsList } from './features/owner-applications/pages/owner-applications';
 import { OwnerLayout } from './layouts/onwerLayout/owner-layout';
+import { PropertyRegistrationComponent } from './features/properties/add-property/property-registration';
+import { MyPropertiesComponent } from './features/properties/my-properties/my-properties';
+import { AdminPropertyListComponent } from './features/properties/admin-property/admin-property-list';
+import { PropertyRoomListComponent } from './features/properties/property-room/property-room-list';
+import { RoomManagementComponent } from './features/properties/property-room/room-management';
+import { HomeHeroSearchComponent } from './features/home/home-hero-search';
+import { HotelListPageComponent } from './features/home/hotel-list';
+import { HotelDetailPageComponent } from './features/home/hotel-detail';
+import { BookingPageComponent } from './features/home/booking';
+import { BookingPaymentPageComponent } from './features/home/booking-payment';
+import { OwnerBookingsPageComponent } from './features/booking/owner-bookings';
+import { AdminUsersPageComponent } from './features/users/admin-users';
 
 export const routes: Routes = [
   {
@@ -46,6 +58,30 @@ export const routes: Routes = [
         path: 'partnershipPage',
         component: PartnershipPage,
       },
+      {
+        path: '',
+        component: HomeHeroSearchComponent,
+      },
+      {
+        path: 'hotels',
+        component: HotelListPageComponent,
+      },
+      {
+        path: 'hotels/:id',
+        component: HotelDetailPageComponent,
+      },
+      {
+        path: 'booking',
+        component: BookingPageComponent,
+      },
+      {
+        path: 'booking',
+        component: BookingPageComponent,
+      },
+      {
+        path: 'booking/payment',
+        component: BookingPaymentPageComponent,
+      },
     ],
   },
   {
@@ -63,10 +99,24 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayout,
-    children: [{ path: 'owner-applications', component: OwnerApplicationsList }],
+    children: [
+      { path: 'owner-applications', component: OwnerApplicationsList },
+      { path: 'hotels/submissions', component: AdminPropertyListComponent },
+      { path: 'users', component: AdminUsersPageComponent },
+    ],
   },
   {
     path: 'owner',
     component: OwnerLayout,
+    children: [
+      { path: 'property/registration', component: PropertyRegistrationComponent },
+      { path: 'property/list', component: MyPropertiesComponent },
+      { path: 'hotels', component: PropertyRoomListComponent },
+      { path: 'hotels/:id', component: RoomManagementComponent },
+      {
+        path: 'bookings',
+        component: OwnerBookingsPageComponent,
+      },
+    ],
   },
 ];

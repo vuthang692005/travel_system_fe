@@ -1,0 +1,113 @@
+<div class="max-w-7xl mx-auto py-10 px-4 md:px-8 flex flex-col md:flex-row gap-8 justify-center">
+  <aside class="w-full md:w-1/4" [class.hidden]="currentStep().key === 'type'">
+    <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm sticky">
+      <h3 class="text-lg font-black text-slate-800 mb-6">Đăng ký cơ sở</h3>
+
+      <div class="space-y-6 relative">
+        <div class="absolute left-[19px] top-6 bottom-6 w-0.5 bg-slate-100 -z-10"></div>
+
+        @for (step of activeSteps(); track step.key; let i = $index) {
+          <div class="flex items-start gap-4" [class.opacity-50]="i > currentStepIndex()">
+            <div
+              class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all shadow-sm"
+              [ngClass]="{
+                'bg-blue-600 border-blue-600 !text-white': i === currentStepIndex(),
+                'bg-emerald-500 border-emerald-500 text-white': i < currentStepIndex(),
+                'bg-white border-slate-200 text-slate-400': i > currentStepIndex(),
+              }"
+            >
+              @if (i < currentStepIndex()) {
+                <mat-icon class="scale-75">check</mat-icon>
+              } @else {
+                <mat-icon class="scale-75">{{ step.icon }}</mat-icon>
+              }
+            </div>
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Bước {{ i + 1 }}
+              </p>
+              <p
+                class="text-sm font-bold"
+                [class.text-blue-600]="i === currentStepIndex()"
+                [class.text-slate-700]="i !== currentStepIndex()"
+              >
+                {{ step.label }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </aside>
+
+  <main class="w-full md:w-3/4">
+    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+      <form [formGroup]="registrationForm">
+        <div [class.hidden]="currentStep().key !== 'type'">
+          <app-property-type-step [control]="registrationForm.controls.propertyType" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'location'">
+          <app-location-step [group]="registrationForm.controls.location" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'amenities'">
+          <app-amenities-step [group]="registrationForm.controls.amenities" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'images'">
+          <app-images-step [images]="uploadedImages" (imagesChange)="uploadedImages.set($event)" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'details'">
+          <app-details-step [group]="registrationForm.controls.details" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'policies'">
+          <app-policy-step [group]="registrationForm.controls.policies" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'unit'">
+          <app-unit-setup-step [group]="registrationForm.controls.unit" />
+        </div>
+
+        <div [class.hidden]="currentStep().key !== 'review'">
+          <app-review-step
+            [formData]="registrationForm.value"
+            [images]="uploadedImages()"
+            [termsControl]="registrationForm.controls.terms"
+          />
+        </div>
+      </form>
+
+      <div class="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center">
+        <button
+          type="button"
+          (click)="prevStep()"
+          [class.invisible]="currentStepIndex() === 0"
+          [disabled]="isSubmitting()"
+          class="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-900 transition-colors"
+        >
+          <mat-icon>west</mat-icon> Quay lại
+        </button>
+
+        @if (!isLastStep()) {
+          <app-button
+            label="Tiếp tục"
+            icon="east"
+            (onClick)="nextStep()"
+            bgColor="bg-blue-600 text-white"
+          />
+        } @else {
+          <app-button
+            label="Hoàn tất & Đăng ký"
+            icon="check_circle"
+            [isLoading]="isSubmitting()"
+            (onClick)="onSubmit()"
+            bgColor="bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-200"
+          />
+        }
+      </div>
+    </div>
+  </main>
+</div>

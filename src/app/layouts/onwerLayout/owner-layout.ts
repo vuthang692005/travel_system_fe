@@ -37,8 +37,8 @@ export class OwnerLayout {
       icon: 'business',
       isOpen: false,
       children: [
-        { label: 'Danh sách cơ sở', icon: 'list_alt', path: '/owner/hotels' },
-        { label: 'Thêm cơ sở', icon: 'add_business', path: '/owner/hotels/create' },
+        { label: 'Danh sách cơ sở', icon: 'list_alt', path: '/owner/property/list' },
+        { label: 'Thêm cơ sở', icon: 'add_business', path: '/owner/property/registration' },
       ],
     },
     { label: 'Cơ sở lưu trú', icon: 'hotel', path: '/owner/hotels' },

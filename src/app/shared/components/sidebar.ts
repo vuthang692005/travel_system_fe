@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, Input, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { NavItem } from '../../core/models/nav-item.model';
@@ -11,7 +11,9 @@ import { NavItem } from '../../core/models/nav-item.model';
   template: `
     <aside class="w-60 bg-white border-r border-gray-100 flex flex-col z-50 shadow-sm h-full">
       <div class="p-6 h-17 flex items-center border-b border-gray-50">
-        <a routerLink="/"><img src="/logo.png" alt="TravelMate" class="h-8 cursor-pointer" /></a>
+        <a [routerLink]="['/', getCurrentBasePath()]"
+          ><img src="/logo.png" alt="TravelMate" class="h-8 cursor-pointer"
+        /></a>
       </div>
 
       <nav class="flex-1 px-2 py-4 overflow-y-auto space-y-1 scrollbar-hide">
@@ -47,8 +49,8 @@ import { NavItem } from '../../core/models/nav-item.model';
                   @for (child of item.children; track child.label) {
                     <a
                       [routerLink]="child.path"
-                      routerLinkActive="text-blue-600 font-bold"
                       class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 text-sm hover:text-slate-700 transition-colors"
+                      routerLinkActive="!text-blue-500 font-bold hover:!text-blue-700"
                     >
                       <mat-icon class="text-xs">{{ child.icon }}</mat-icon>
                       <span>{{ child.label }}</span>
@@ -64,11 +66,17 @@ import { NavItem } from '../../core/models/nav-item.model';
   `,
 })
 export class Sidebar {
+  private router = inject(Router);
   @Input() menuItems: NavItem[] = [];
 
   toggleSubMenu(item: NavItem) {
     if (item.children) {
       item.isOpen = !item.isOpen;
     }
+  }
+
+  getCurrentBasePath() {
+    const url = this.router.url;
+    return url.split('/')[1];
   }
 }
